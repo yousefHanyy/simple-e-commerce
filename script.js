@@ -130,19 +130,44 @@ addEventListener("load", () => {
         "https://images.unsplash.com/photo-1625948515291-69613efd103f?w=500&q=80",
     },
   ];
-
+  //svgheart variable to add it to innerHTML easily
+  var svgHeart = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
+</svg>`;
   //Creating the products layout
   function productDivsCreation(arr) {
     var productsContainer = document.querySelector("#productsContainer");
     //Creating the row divs
     for (i = 0; i < 3; i++) {
       var divRow = document.createElement("div");
-      productsContainer.appendChild(divRow);
+      divRow.classList.add("divRows");
       divRow.id = "row" + [i];
+      productsContainer.appendChild(divRow);
     }
     //Looping over each row to fill it with 5 products
     for (i = 0; i < arr.length; i++) {
       var productDiv = document.createElement("div");
+      var productDescription = document.createElement("div");
+      productDiv.classList.add("productCard");
+      productDescription.classList.add("productDescription");
+      //Product content creation
+      var productImg = document.createElement("img");
+      productImg.src = arr[i].image;
+      var productName = document.createElement("h2");
+      productName.innerText = arr[i].title;
+      var productPrice = document.createElement("p");
+      productPrice.innerText = "$" + arr[i].price;
+      var productCartButton = document.createElement("button");
+      productCartButton.innerText = "Add to cart";
+      var productFavButton = document.createElement("button");
+      productFavButton.innerHTML = svgHeart;
+      //Appending product card content:
+      productDiv.appendChild(productImg);
+      productDiv.appendChild(productDescription);
+      productDescription.appendChild(productName);
+      productDescription.appendChild(productPrice);
+      productDescription.appendChild(productCartButton);
+      productDescription.appendChild(productFavButton);
       productDiv.id = "prod" + arr[i].id;
       var divRowOne = document.querySelector("#row0");
       var divRowTwo = document.querySelector("#row1");

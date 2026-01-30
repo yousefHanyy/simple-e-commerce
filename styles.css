@@ -49,3 +49,41 @@ main {
   margin-top: 20px;
   margin-bottom: 20px;
 }
+.divRows {
+  display: flex;
+  justify-content: space-evenly;
+  align-content: center;
+}
+.productCard {
+  width: 17%;
+  height: 350px;
+  margin: 10px 5px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.productDescription {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  gap: 10px;
+}
+button {
+  cursor: pointer;
+  background-color: #d4a373;
+  border: none;
+  border-radius: 7px;
+  padding: 5px;
+  color: white;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+img {
+  width: 100%;
+  height: 60%;
+}
