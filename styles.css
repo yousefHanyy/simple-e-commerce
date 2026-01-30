@@ -35,7 +35,7 @@ a:hover {
 main {
   background-color: whitesmoke;
 }
-#mainContent {
+.mainContent {
   display: flex;
   flex-direction: column;
   margin: 0 auto;
@@ -86,4 +86,7 @@ button {
 img {
   width: 100%;
   height: 60%;
+}
+#cartContainer {
+  height: 100vh;
 }
