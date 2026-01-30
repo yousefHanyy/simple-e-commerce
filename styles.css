@@ -35,3 +35,17 @@ a:hover {
 main {
   background-color: whitesmoke;
 }
+#mainContent {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  width: 1250px;
+}
+#searchInput {
+  width: 100%;
+  padding: 5px;
+  border-radius: 3px;
+  border: 1px solid grey;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
