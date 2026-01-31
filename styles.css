@@ -32,7 +32,7 @@ a:hover {
   background-color: rgb(175, 202, 87);
   color: white;
 }
-main {
+body {
   background-color: whitesmoke;
 }
 .mainContent {
@@ -89,4 +89,8 @@ img {
 }
 #cartContainer {
   height: 100vh;
+}
+.quantityContainer {
+  display: flex;
+  justify-content: space-around;
 }

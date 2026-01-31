@@ -6,6 +6,7 @@ products = [
     description: "High-performance smartphone with OLED display.",
     price: 799,
     image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9",
+    quantity: 1,
   },
   {
     id: 2,
@@ -14,6 +15,7 @@ products = [
     description: "Lightweight laptop for work and gaming.",
     price: 1299,
     image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8",
+    quantity: 1,
   },
   {
     id: 3,
@@ -23,6 +25,7 @@ products = [
     price: 199,
     image:
       "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&q=80",
+    quantity: 1,
   },
   {
     id: 4,
@@ -31,6 +34,7 @@ products = [
     description: "Tracks health metrics all day.",
     price: 149,
     image: "https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b",
+    quantity: 1,
   },
   {
     id: 5,
@@ -39,15 +43,18 @@ products = [
     description: "Blue switch mechanical keyboard.",
     price: 89,
     image: "https://images.unsplash.com/photo-1593642532973-d31b6557fa68",
+    quantity: 1,
   },
   {
     id: 6,
     name: "Samrt Watch",
     title: "Ergonomic Pro Mouse",
     description: "Precision sensor and programmable buttons.",
+    quantity: 1,
     price: 49,
     image:
       "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=500&q=80",
+    quantity: 1,
   },
   {
     id: 7,
@@ -56,6 +63,7 @@ products = [
     description: "Sharp and vivid colors for work and gaming.",
     price: 399,
     image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8",
+    quantity: 1,
   },
   {
     id: 8,
@@ -65,6 +73,7 @@ products = [
     price: 999,
     image:
       "https://images.unsplash.com/photo-1588508065123-287b28e013da?w=500&q=80",
+    quantity: 1,
   },
   {
     id: 9,
@@ -74,6 +83,7 @@ products = [
     price: 59,
     image:
       "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500&q=80",
+    quantity: 1,
   },
   {
     id: 10,
@@ -83,6 +93,7 @@ products = [
     price: 349,
     image:
       "https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=500&q=80",
+    quantity: 1,
   },
   {
     id: 11,
@@ -92,6 +103,7 @@ products = [
     price: 299,
     image:
       "https://images.unsplash.com/photo-1591405351990-4726e331f141?w=500&q=80",
+    quantity: 1,
   },
   {
     id: 12,
@@ -100,6 +112,7 @@ products = [
     description: "Perfect aerial photography.",
     price: 499,
     image: "https://images.unsplash.com/photo-1512820790803-83ca734da794",
+    quantity: 1,
   },
   {
     id: 13,
@@ -109,6 +122,7 @@ products = [
     price: 129,
     image:
       "https://images.unsplash.com/photo-1612198188060-c7c2a3b66eae?w=500&q=80",
+    quantity: 1,
   },
   {
     id: 14,
@@ -118,6 +132,7 @@ products = [
     price: 39,
     image:
       "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=500&q=80",
+    quantity: 1,
   },
   {
     id: 15,
@@ -127,13 +142,14 @@ products = [
     price: 699,
     image:
       "https://images.unsplash.com/photo-1625948515291-69613efd103f?w=500&q=80",
+    quantity: 1,
   },
 ];
 //svgheart variable to add it to innerHTML easily
 var svgHeart = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
   <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
 </svg>`;
-//Checking if certain elements exist in a webpage to initiate certain script code
+//Checking if certain elements exist in a webpage to initiate certain script
 var inputElm = document.querySelector("#searchInput");
 if (inputElm) {
   filteredProductsCreation();
@@ -148,6 +164,7 @@ var cartContainer = document.querySelector("#cartContainer");
 if (cartContainer) {
   cartDivsCreation();
 }
+
 var favProducts = [];
 var tableCreated = false;
 //Creating the products layout
@@ -253,17 +270,70 @@ function cartDivsCreation() {
     productPrice.innerText = "$" + cartProducts[i].price;
 
     var quantityContainer = document.createElement("div");
+    quantityContainer.classList.add("quantityContainer");
+
+    const quantityNumber = document.createElement("span");
+    quantityNumber.innerText = "1";
     var productSubtractButton = document.createElement("button");
     productSubtractButton.innerText = "-";
-    var quantityNumber = document.createElement("span");
-    quantityNumber.innerText = "1";
+
     var productAddButton = document.createElement("button");
     productAddButton.innerText = "+";
-    var subtotalDetails = document.createElement("p");
-    subtotalDetails.innerText =
-      "Subtotal: $" + cartProducts[i].price * Number(quantityNumber.innerText);
+
+    //Adding at max 3
+    const subtotalDetails = document.createElement("p");
+    var subtotalPriceAdd =
+      cartProducts[i].price * Number(quantityNumber.innerText);
+
+    subtotalDetails.innerText = "Subtotal: $" + subtotalPriceAdd;
+    productAddButton.addEventListener("click", function () {
+      const currentQuantity = Number(quantityNumber.innerText);
+      if (currentQuantity < 3) {
+        quantityNumber.innerText = currentQuantity + 1;
+        subtotalDetails.innerText =
+          "Subtotal: $" + cartProducts[i].price * Number(currentQuantity + 1);
+        cartProducts[i].quantity++;
+        calculateTotal();
+        //adding the subtotal to Total value
+        // var currentSubtotalAdded =
+        //   cartProducts[i].price * Number(currentQuantity + 1);
+        // totalValue += currentSubtotalAdded;
+
+        // console.log(totalValue);
+      }
+    });
+
+    //Subtracting products if there is at least more than 1
+    productSubtractButton.addEventListener("click", function () {
+      //checking which button is being pressed to add and sub
+      const currentQuantity = Number(quantityNumber.innerText);
+      if (currentQuantity > 1) {
+        quantityNumber.innerText = currentQuantity - 1;
+        subtotalDetails.innerText =
+          "Subtotal: $" + cartProducts[i].price * Number(currentQuantity - 1);
+        cartProducts[i].quantity--;
+        calculateTotal();
+        // var currentSubtotalSubtracted =
+        //   cartProducts[i].price * Number(currentQuantity - 1);
+        // totalValue -= currentSubtotalSubtracted;
+
+        // console.log(totalValue);
+      }
+    });
+    //removing element form DOM and localstorage
     var removeButton = document.createElement("button");
     removeButton.innerText = "Remove";
+    removeButton.addEventListener("click", function () {
+      var removeParentCont = this.parentElement.parentElement;
+      removeParentCont.remove();
+      //filtering from cart products array based on product id
+      cartProducts = cartProducts.filter(
+        (item) => item.id !== cartProducts[i].id,
+      );
+      localStorage.setItem("cart", JSON.stringify(cartProducts));
+      calculateTotal();
+    });
+
     //Appending
     productDiv.appendChild(productImg);
     productDiv.appendChild(productDescription);
@@ -283,5 +353,23 @@ function cartDivsCreation() {
     } else if (i < 10) {
       divRowTwo.appendChild(productDiv);
     } else divRowThree.appendChild(productDiv);
+    //Calculating total of all products:
+    var totalPorductsValue = document.createElement("h3");
+    function calculateTotal() {
+      let total = 0;
+      cartProducts.forEach((product) => {
+        const qty = product.quantity || 1;
+        total += Number(product.price) * qty;
+      });
+
+      totalPorductsValue.innerText = "Total: $" + total.toFixed(2);
+      var totalContainer = document.querySelector("#totalContainer");
+      totalContainer.appendChild(totalPorductsValue);
+    }
+
+    // totalValue += subtotalPriceAdd;
+    // console.log(totalValue);
+    // totalPorductsValue.innerText = "Total: $" + totalValue;
   }
+  calculateTotal();
 }
